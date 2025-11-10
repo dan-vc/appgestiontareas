@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+
+echo "Instalando extensión MongoDB..."
+pecl install -f mongodb
+docker-php-ext-enable mongodb
+
 echo "Running composer"
 composer install --no-dev --working-dir=/var/www/html
 
