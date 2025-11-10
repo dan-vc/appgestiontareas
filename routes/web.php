@@ -1,36 +1,36 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-Route::get('/', [ChirpController::class, 'index']);
 
-Route::middleware('auth')->group(function () {
-    Route::post('/chirps', [ChirpController::class, 'store']);
-    Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit']);
-    Route::put('/chirps/{chirp}', [ChirpController::class, 'update']);
-    Route::delete('/chirps/{chirp}', [ChirpController::class, 'destroy']);
+Route::get('/', function () {
+    return redirect('login');
+    return view('welcome');
 });
 
-// Register routes
-Route::view('/register', 'auth.register')
-    ->middleware('guest')
-    ->name('register');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/register', RegisterController::class)
-    ->middleware('guest');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-// Logout
-Route::post('/logout', LogoutController::class)
-    ->middleware('auth');
+    Route::get('/tasks', [TaskController::class, 'index'])->name('dashboard');
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::put('/tasks', [TaskController::class, 'update'])->name('tasks.update');
+    Route::delete('/tasks', [TaskController::class, 'destroy'])->name('tasks.destroy');
+});
 
-// Login
-Route::view('/login','auth.login')
-    ->middleware('guest')
-    ->name('login');
 
-Route::post('/login', LoginController::class)
-    ->middleware('guest');
+Route::get('/auth/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+
+Route::get('/auth/github', [AuthenticatedSessionController::class, 'redirectToGithub'])->name('auth.github');
+Route::get('/auth/github/callback', [AuthenticatedSessionController::class, 'handleGithubCallback']);
+
+require __DIR__ . '/auth.php';
