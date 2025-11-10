@@ -1,27 +1,36 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ChirpController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect('login');
-    return view('welcome');
-});
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [ChirpController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/tasks', [TaskController::class, 'index'])->name('dashboard');
-    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-    Route::put('/tasks', [TaskController::class, 'update'])->name('tasks.update');
-    Route::delete('/tasks', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    Route::post('/chirps', [ChirpController::class, 'store']);
+    Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit']);
+    Route::put('/chirps/{chirp}', [ChirpController::class, 'update']);
+    Route::delete('/chirps/{chirp}', [ChirpController::class, 'destroy']);
 });
 
-require __DIR__.'/auth.php';
+// Register routes
+Route::view('/register', 'auth.register')
+    ->middleware('guest')
+    ->name('register');
+
+Route::post('/register', RegisterController::class)
+    ->middleware('guest');
+
+// Logout
+Route::post('/logout', LogoutController::class)
+    ->middleware('auth');
+
+// Login
+Route::view('/login','auth.login')
+    ->middleware('guest')
+    ->name('login');
+
+Route::post('/login', LoginController::class)
+    ->middleware('guest');

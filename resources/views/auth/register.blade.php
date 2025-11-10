@@ -1,77 +1,76 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<x-layout>
+    <x-slot:title>
+        Register
+    </x-slot:title>
 
-    <div class="flex justify-center items-center w-full lg:gap-24">
-        <div class="flex flex-col p-5 py-10 md:py-5 max-w-[430px] w-full">
-            <h1 class="text-3xl font-bold text-center sm:text-left">Crear una cuenta</h1>
+    <div class="hero min-h-[calc(100vh-16rem)]">
+        <div class="hero-content flex-col">
+            <div class="card w-96 bg-base-100">
+                <div class="card-body">
+                    <h1 class="text-3xl font-bold text-center mb-6">Create Account</h1>
 
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+                    <form method="POST" action="/register">
+                        @csrf
 
-                <!-- Name -->
-                <div class="mt-6">
-                    <x-input-label for="name" value="Nombre" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                        required autofocus autocomplete="name" placeholder="Link Flores" />
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        <!-- Name -->
+                        <label class="floating-label mb-6">
+                            <input type="text" name="name" placeholder="John Doe" value="{{ old('name') }}"
+                                class="input input-bordered @error('name') input-error @enderror" required>
+                            <span>Name</span>
+                        </label>
+                        @error('name')
+                            <div class="label -mt-4 mb-2">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
+                        @enderror
+
+                        <!-- Email -->
+                        <label class="floating-label mb-6">
+                            <input type="email" name="email"
+                                placeholder="[mail@example.com](<mailto:mail@example.com>)" value="{{ old('email') }}"
+                                class="input input-bordered @error('email') input-error @enderror" required>
+                            <span>Email</span>
+                        </label>
+                        @error('email')
+                            <div class="label -mt-4 mb-2">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
+                        @enderror
+
+                        <!-- Password -->
+                        <label class="floating-label mb-6">
+                            <input type="password" name="password" placeholder="••••••••"
+                                class="input input-bordered @error('password') input-error @enderror" required>
+                            <span>Password</span>
+                        </label>
+                        @error('password')
+                            <div class="label -mt-4 mb-2">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
+                        @enderror
+
+                        <!-- Password Confirmation -->
+                        <label class="floating-label mb-6">
+                            <input type="password" name="password_confirmation" placeholder="••••••••"
+                                class="input input-bordered" required>
+                            <span>Confirm Password</span>
+                        </label>
+
+                        <!-- Submit Button -->
+                        <div class="form-control mt-8">
+                            <button type="submit" class="btn btn-primary btn-sm w-full">
+                                Register
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="divider">OR</div>
+                    <p class="text-center text-sm">
+                        Already have an account?
+                        <a href="/login" class="link link-primary">Sign in</a>
+                    </p>
                 </div>
-
-                <!-- Email Address -->
-                <div class="mt-4">
-                    <x-input-label for="email" value="Correo Eléctronico" />
-                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                        :value="old('email')" required autocomplete="username" placeholder="linkfloo@gmail.com" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                </div>
-
-                <!-- Password -->
-                <div class="mt-4">
-                    <x-input-label for="password" value="Contraseña" />
-
-                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="new-password" placeholder="*****" />
-
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mt-4">
-                    <x-input-label for="password_confirmation" value="Confirmar Contraseña" />
-
-                    <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required autocomplete="new-password" placeholder="*****" />
-
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                </div>
-
-                <div class="flex flex-col items-start justify-end mt-4 gap-4">
-                    <span class="text-sm">
-                        ¿Ya tienes una cuenta?
-
-                        <a class="underline text-light opacity-70 hover:opacity-100 active:text-primary transition"
-                            href="{{ route('login') }}">
-                            Inicia sesión aquí
-                        </a>
-                    </span>
-
-                    <x-primary-button class="w-full h-[60px] rounded-2xl">
-                        Registrarse
-                    </x-primary-button>
-                </div>
-            </form>
-        </div>
-        <div class="hidden md:block relative">
-            <img src="{{ asset('img/login-image.png') }}" alt="Imagen del login" class="animate-beat-slow">
-            <img src="{{ asset('img/watch.png') }}" alt="Reloj"
-                class="animate-beat-reverse absolute top-0 left-[80px]">
-            <img src="{{ asset('img/pie.png') }}" alt="Tarta" class="animate-beat-reverse absolute top-1/3 left">
-            <img src="{{ asset('img/coffee.png') }}" alt="Café"
-                class="animate-beat absolute bottom-[100px] right-[100px]">
-            <img src="{{ asset('img/calendar.png') }}" alt="Calendario"
-                class="animate-beat-reverse absolute top-1/4 right-20">
-            <img src="{{ asset('img/vase.png') }}" alt="Jarrón"
-                class="animate-beat absolute bottom-[60px] left-[40px]">
+            </div>
         </div>
     </div>
-</x-guest-layout>
+</x-layout>
