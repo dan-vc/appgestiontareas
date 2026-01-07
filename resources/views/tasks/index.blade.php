@@ -259,10 +259,10 @@
 
                 {{-- Due Date --}}
                 <div class="mt-6">
-                    <x-input-label for="due_date" value="Titulo" />
+                    <x-input-label for="due_date" value="Fecha de Vencimiento" />
                     <x-text-input id="due_date" name="due_date" type="date" class="mt-2 block w-full" dark
-                        placeholder="Implementar diseño..." required min="{{ now()->format('Y-m-d') }}"
-                        value="{{ now()->format('Y-m-d') }}" />
+                        placeholder="Implementar diseño..." required min="{{ today()->toDateString() }}"
+                        value="{{ today()->toDateString() }}" />
 
                     <x-input-error :messages="$errors->get('due_date')" class="mt-2" />
                 </div>

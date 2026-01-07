@@ -20,6 +20,23 @@
 </head>
 
 <body class="font-sans antialiased">
+    @if ($errors->any())
+        <x-alert type="danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </x-alert>
+    @endif
+
+
+    @if (session('success'))
+        <x-alert type="success">
+            {{ session('success') }}
+        </x-alert>
+    @endif
+    
     <div class="min-h-screen layout-wrapper bg-secondary text-light gap-8 p-3 pb-28 sm:pb-3">
         @include('layouts.navigation')
 

@@ -30,19 +30,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'due_date' => 'nullable|date',
+                'status' => 'required|in:pendiente,en progreso,completada'
+            ]);
 
-        $userId = Auth::id();
-        $validatedData['user_assigned'] = $userId;
-        $validatedData['status'] = 'pendiente';
+            $userId = Auth::id();
+            $validatedData['user_assigned'] = $userId;
+            $task = Task::create($validatedData);
 
-        $task = Task::create($validatedData);
-
-        return redirect()->route('dashboard')->with('success', 'Tarea creada exitosamente.');
+            return redirect()->route('dashboard')->with('success', 'Tarea creada exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard')->withErrors('Ocurrió un error al crear la tarea');
+        }
     }
 
     /**

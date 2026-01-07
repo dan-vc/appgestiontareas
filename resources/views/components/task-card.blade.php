@@ -4,14 +4,13 @@
 
 @php
     $borderClass = null;
-    if ($task?->getDueStatus() == 'Vencido') {
+    if ($task->getDueStatus() == 'Vencido' && !($task->status == 'completada')) {
         $borderClass = 'border border-red-500';
     }
 @endphp
 
 {{-- Card --}}
-<div
-    class="p-5 pt-4 pb-2 bg-secondary rounded-2xl flex flex-col gap-4 relative {{ $borderClass }}">
+<div class="p-5 pt-4 pb-2 bg-secondary rounded-2xl flex flex-col gap-4 relative {{ $borderClass }}">
     {{-- Options --}}
     <div class="absolute top-4 right-4">
         <x-dropdown>
@@ -34,22 +33,22 @@
             <x-slot name="content">
                 <x-dropdown-link href="/" x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'edit-task'); selected = {{ Js::from([
-                        'id' => $task?->id,
-                        'title' => $task?->title,
-                        'description' => $task?->description,
-                        'status' => $task?->status,
-                        'due_date' => $task?->due_date,
+                        'id' => $task->id,
+                        'title' => $task->title,
+                        'description' => $task->description,
+                        'status' => $task->status,
+                        'due_date' => $task->due_date,
                     ]) }}">
                     Editar
                 </x-dropdown-link>
 
                 <x-dropdown-link href="/" x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'delete-task'); selected = {{ Js::from([
-                        'id' => $task?->id,
-                        'title' => $task?->title,
-                        'description' => $task?->description,
-                        'status' => $task?->status,
-                        'due_date' => $task?->due_date,
+                        'id' => $task->id,
+                        'title' => $task->title,
+                        'description' => $task->description,
+                        'status' => $task->status,
+                        'due_date' => $task->due_date,
                     ]) }}">
                     Eliminar
                 </x-dropdown-link>
@@ -59,29 +58,36 @@
 
     {{-- Content --}}
     <div class="pr-6">
-        <h3 class="text-lg mb-3">{{ $task?->title }}</h3>
+        <h3 class="text-lg mb-3">{{ $task->title }}</h3>
         <p class="text-sm opacity-70">
-            {{ $task?->description }}
+            {{ $task->description }}
         </p>
     </div>
 
     {{-- Author --}}
-    <span class="flex items-center justify-center bg-primary rounded-full aspect-square p-1 text-dark text-sm w-[30px]" style="background: {{ $task?->user->getUserAKA()['color'] }}">
-        {{ $task?->user->getUserAKA()['aka'] }}
+    @php
+        $userAKA = $task->user?->getUserAKA();
+        $aka = $userAKA['aka'] ?? 'NA'; // Alias por defecto
+        $color = $userAKA['color'] ?? '#cccccc'; // color por defecto
+        $username = $task->user?->name ?? 'Usuario Desconocido';
+    @endphp
+    <span class="flex items-center justify-center bg-primary rounded-full aspect-square p-1 text-dark text-sm w-[30px] select-none"
+        style="background: {{ $color }}" title="{{ $username }}">
+        {{ $aka }}
     </span>
 
     {{-- Bottom --}}
     {{-- Top --}}
     <div class="flex justify-between items-center h-8">
-        @if ($task?->isDueSoon())
+        @if ($task->isDueSoon())
             <span
                 class="inline-flex items-center gap-2 uppercase text-gray-400 font-medium text-xs before:block before:aspect-square before:bg-red-500 before:w-2 before:rounded-full">
-                {{ $task?->getDueStatus() }}
+                {{ $task->getDueStatus() }}
             </span>
         @endif
 
         <span class="opacity-70 ms-auto">
-            {{ $task?->due_date }}
+            {{ $task->due_date }}
         </span>
     </div>
 </div>
