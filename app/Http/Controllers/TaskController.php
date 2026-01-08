@@ -44,7 +44,7 @@ class TaskController extends Controller
 
             return redirect()->route('dashboard')->with('success', 'Tarea creada exitosamente.');
         } catch (\Exception $e) {
-            return redirect()->route('dashboard')->withErrors('Ocurrió un error al crear la tarea');
+            return redirect()->route('dashboard')->withErrors('Ocurrió un error al crear la tarea.');
         }
     }
 

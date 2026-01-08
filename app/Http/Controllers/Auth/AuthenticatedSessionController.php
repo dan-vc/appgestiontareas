@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard', absolute: false))->with('success', 'Has iniciado sesión correctamente.');
     }
 
     /**
@@ -72,9 +72,9 @@ class AuthenticatedSessionController extends Controller
 
             Auth::login($user, true);
 
-            return redirect('/tasks');
+            return redirect('/tasks')->with('success', 'Has iniciado sesión correctamente con Google.');
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors(['social_errors' => 'Error iniciando sesión con Google $e']);
+            return redirect('/login')->withErrors(['social_errors' => 'Error iniciando sesión con Google.']);
         }
     }
 
@@ -102,9 +102,9 @@ class AuthenticatedSessionController extends Controller
 
             Auth::login($user, true);
 
-            return redirect('/tasks');
+            return redirect('/tasks')->with('success', 'Has iniciado sesión correctamente con GitHub.');
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors(['social_errors' => 'Error iniciando sesión con GitHub']);
+            return redirect('/login')->withErrors(['social_errors' => 'Error iniciando sesión con GitHub.']);
         }
     }
 }

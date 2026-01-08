@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mongodb')->create('tasks', function (Blueprint $collection) {
+        Schema::create('tasks', function (Blueprint $collection) {
             $collection->id();
             $collection->string('title');
             $collection->text('description')->nullable();
@@ -19,7 +19,6 @@ return new class extends Migration
             $collection->date('due_date');
             $collection->string('user_assigned')->nullable();
             $collection->timestamps();  
-            $collection->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('mongodb')->dropIfExists('tasks');
+        Schema::dropIfExists('tasks');
     }
 };

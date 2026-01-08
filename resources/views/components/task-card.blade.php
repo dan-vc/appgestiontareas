@@ -79,7 +79,7 @@
     {{-- Bottom --}}
     {{-- Top --}}
     <div class="flex justify-between items-center h-8">
-        @if ($task->isDueSoon())
+        @if ($task->isDueSoon() && !($task->status == 'completada'))
             <span
                 class="inline-flex items-center gap-2 uppercase text-gray-400 font-medium text-xs before:block before:aspect-square before:bg-red-500 before:w-2 before:rounded-full">
                 {{ $task->getDueStatus() }}

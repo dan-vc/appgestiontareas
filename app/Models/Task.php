@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use MongoDB\Laravel\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $connection = 'mongodb';
+    // protected $connection = 'mongodb';
     protected $collection = 'tasks';
     protected $fillable = [
         'title',
@@ -19,7 +19,7 @@ class Task extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_assigned', '_id');
+        return $this->belongsTo(User::class, 'user_assigned');
     }
 
     public function isDueSoon(): bool

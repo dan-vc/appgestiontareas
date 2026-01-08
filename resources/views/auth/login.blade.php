@@ -17,6 +17,20 @@
         <div class="flex flex-col p-5 py-10 md:py-5 max-w-[430px] w-full">
             <h1 class="text-3xl font-bold text-center sm:text-left">Iniciar Sesión</h1>
 
+            <p>Credenciales de prueba:</p>
+            <ul class="list-disc list-inside text-sm">
+                <li>Correo:
+                    <code class="bg-gray-100 px-1 rounded text-gray-900">
+                        test@taskflow.com
+                    </code>
+                </li>
+                <li>Contraseña:
+                    <code class="bg-gray-100 px-1 rounded text-gray-900">
+                        test@taskflow
+                    </code>
+                </li>
+            </ul>
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -33,7 +47,7 @@
                     <x-input-label for="password" value="Contraseña" />
 
                     <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                        autocomplete="current-password" placeholder="******" />
+                        autocomplete="current-password" placeholder="********" />
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
@@ -46,12 +60,12 @@
                         <span class="ms-2 text-sm text-light">Recuérdame</span>
                     </label>
 
-                    @if (Route::has('password.request'))
+                    {{-- @if (Route::has('password.request'))
                         <a class="underline self-end text-light opacity-70 hover:opacity-100 active:text-primary transition text-sm"
                             href="{{ route('password.request') }}">
                             ¿Olvidaste tu contraseña?
                         </a>
-                    @endif
+                    @endif --}}
                 </div>
 
                 <div class="flex flex-col justify-end mt-6 gap-4">
