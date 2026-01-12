@@ -1,4 +1,4 @@
-# Sistema de gestión de tareas para estudiantes profesionales y equipos.
+# Sistema de gestión de tareas para estudiantes, profesionales y equipos
 
 
 ## Tabla de contenidos
