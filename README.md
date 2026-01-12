@@ -5,7 +5,6 @@
 
   - [Captura de pantalla](#captura-de-pantalla)
   - [Stack tecnológico](#stack-tecnológico)
-  - [Autores](#autores)
   - [Licencia](#licencia)
 
 ### Captura de pantalla
@@ -18,11 +17,6 @@
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Alphine.js](https://alpinejs.dev/)
 - [MySQL](https://www.mysql.com/)
-
-### Autores
-
-- Website - [Daniel Villafranqui](https://portafolio-danvc.netlify.app/)
-- Frontend Mentor - [@dan-vc](https://www.frontendmentor.io/profile/dan-vc)
 
 ### Licencia
 
