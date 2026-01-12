@@ -27,10 +27,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/auth/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/auth/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
+Route::get('/login/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/login/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
 
-Route::get('/auth/github', [AuthenticatedSessionController::class, 'redirectToGithub'])->name('auth.github');
-Route::get('/auth/github/callback', [AuthenticatedSessionController::class, 'handleGithubCallback']);
+Route::get('/login/github', [AuthenticatedSessionController::class, 'redirectToGithub'])->name('auth.github');
+Route::get('/login/github/callback', [AuthenticatedSessionController::class, 'handleGithubCallback']);
 
 require __DIR__ . '/auth.php';
