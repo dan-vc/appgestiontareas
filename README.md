@@ -14,12 +14,10 @@
 
 ### Stack tecnológico
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- Responsive Design
-- JavaScript
-- [Tailwind](https://tailwindcss.com/) - For styles
+- [Laravel](https://laravel.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Alphine.js](https://alpinejs.dev/)
+- [MySQL](https://www.mysql.com/)
 
 ### Autores
 
